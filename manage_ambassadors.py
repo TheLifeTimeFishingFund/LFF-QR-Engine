@@ -23,8 +23,8 @@ def calculate_tier(xp):
 
 def generate_tiered_redirect(username, tier):
     """Creates an index page that bounces scanners to their unlocked dashboard configuration."""
-    # Point directly to your independent public dashboard pages
-    destination_url = f"{ENGINE_BASE_URL}/dashboards/tier{tier}.html?utm_source=lff_ambassador&utm_campaign={username}"
+    # Fixed organization path destination
+    destination_url = f"https://github.io{tier}.html?utm_source=lff_ambassador&utm_campaign={username}"
     
     html_content = f"""<!DOCTYPE html>
 <html>
@@ -46,6 +46,7 @@ def generate_tiered_redirect(username, tier):
 </html>
 """
     return html_content
+
 
 def process_roster(csv_path, output_dir):
     print("🎣 Executing LifeTime Fishing Fund Routing Compilation...")
