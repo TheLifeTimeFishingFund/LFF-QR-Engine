@@ -24,7 +24,7 @@ def calculate_tier(xp):
 def generate_tiered_redirect(username, tier):
     """Creates an index page that bounces scanners to their unlocked dashboard configuration."""
     # Fixed organization path destination
-    destination_url = f"https://github.io{tier}.html?utm_source=lff_ambassador&utm_campaign={username}"
+    destination_url = f"{https://thelifetimefishingfund.github.io}/LFF-QR-Engine/dashboards/{tier}.html?utm_source=lff_ambassador&utm_campaign={username}"
     
     html_content = f"""<!DOCTYPE html>
 <html>
