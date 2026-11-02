@@ -2,7 +2,7 @@ import csv
 import os
 
 # Configuration Parameters
-ENGINE_BASE_URL = "https://thelifetimefishingfund.github.io"
+ENGINE_BASE_URL = "https://github.io"
 GTAG_ID = "G-CVGCBXJ2L0"
 
 # Experience Point (XP) Thresholds
@@ -23,8 +23,8 @@ def calculate_tier(xp):
 
 def generate_tiered_redirect(username, tier):
     """Creates an index page that bounces scanners to their unlocked dashboard configuration."""
-    # Fixed organization path destination
-    destination_url = f"{https://thelifetimefishingfund.github.io}/LFF-QR-Engine/dashboards/{tier}.html?utm_source=lff_ambassador&utm_campaign={username}"
+    # Fixed the variable assignment and stitched the matching tier file pattern cleanly
+    destination_url = f"{ENGINE_BASE_URL}/dashboards/tier{tier}.html?utm_source=lff_ambassador&utm_campaign={username}"
     
     html_content = f"""<!DOCTYPE html>
 <html>
