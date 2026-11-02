@@ -24,7 +24,7 @@ jobs:
           repository: ${{ github.repository_owner }}/LFF-Ambass-ops
           path: private-ops
           # Since the public repo is pulling its own organization data, it uses the built-in system token
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.PRIVATE_ROSTER_PAT }} 
 
       - name: Setup Python Environment
         uses: actions/setup-python@v5
