@@ -2,7 +2,7 @@ import csv
 import os
 
 # Configuration Parameters
-ENGINE_BASE_URL = "https://github.io"
+ENGINE_BASE_URL = "https://thelifetimefishingfund.github.io"
 GTAG_ID = "G-CVGCBXJ2L0"
 
 # Experience Point (XP) Thresholds
