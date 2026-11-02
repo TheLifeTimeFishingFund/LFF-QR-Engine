@@ -1,11 +1,15 @@
 name: Compile Public Tracker Routes
 
 on:
-  repository_dispatch:
-    types: [roster_updated]
-    
-# This opens the security gate for the incoming background runner
-permissions: write-all
+  # Allows you to trigger the sync manually whenever you want by clicking a button!
+  workflow_dispatch:
+  
+  # Automatically runs the sync on a quiet schedule behind the scenes
+  schedule:
+    - cron: '0 * * * *' # Runs automatically once every hour
+
+permissions:
+  contents: write
 
 jobs:
   build-tracks:
@@ -19,7 +23,8 @@ jobs:
         with:
           repository: ${{ github.repository_owner }}/LFF-Ambass-ops
           path: private-ops
-          token: ${{ secrets.GITHUB_TOKEN }} # Automatically authorized to see your own account's private repos
+          # Since the public repo is pulling its own organization data, it uses the built-in system token
+          token: ${{ secrets.GITHUB_TOKEN }} 
 
       - name: Setup Python Environment
         uses: actions/setup-python@v5
@@ -28,13 +33,8 @@ jobs:
 
       - name: Run Compilation Engine & Sanitize Data
         run: |
-          # Copy the private spreadsheet data into the execution workspace root
           cp private-ops/data/ambassadors.csv ./ambassadors.csv
-          
-          # Run the Python compiler script to build the tracking subdirectories
           python manage_ambassadors.py
-          
-          # CRITICAL STEP: Completely delete the raw private data before any code is pushed or saved
           rm -rf ./ambassadors.csv
           rm -rf ./private-ops
 
@@ -44,7 +44,6 @@ jobs:
           git config --global user.email "engine@lifetimefishingfund.org"
           git add .
           
-          # Ensure there are actually new files to commit so the pipeline doesn't crash on identical saves
           if git diff-index --quiet HEAD --; then
             echo "No structural tracking adjustments detected. Engine is clean."
           else
