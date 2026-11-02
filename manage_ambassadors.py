@@ -1,9 +1,8 @@
 import csv
 import os
 
-# 1. Target URL Configurations
-# Replace this with your true live website branch or main site url later
-MAIN_FUND_SITE = "https://your-main-fund-site.org" 
+# Configuration Parameters
+ENGINE_BASE_URL = "https://github.io"
 GTAG_ID = "G-CVGCBXJ2L0"
 
 # Experience Point (XP) Thresholds
@@ -12,14 +11,20 @@ TIER_2_MAX = 999
 TIER_3_MAX = 2499
 
 def calculate_tier(xp):
-    if xp <= TIER_1_MAX: return 1
-    elif xp <= TIER_2_MAX: return 2
-    elif xp <= TIER_3_MAX: return 3
-    else: return 4
+    """Calculates active assignment boundaries based on user engagement metrics."""
+    if xp <= TIER_1_MAX: 
+        return 1
+    elif xp <= TIER_2_MAX: 
+        return 2
+    elif xp <= TIER_3_MAX: 
+        return 3
+    else: 
+        return 4
 
-def generate_redirect_html(username):
-    """Creates the mobile tracker template that fires Google Analytics and jumps to your site."""
-    destination_url = f"{MAIN_FUND_SITE}?utm_source=ambassador&utm_medium=mobile_qr&utm_campaign={username}"
+def generate_tiered_redirect(username, tier):
+    """Creates an index page that bounces scanners to their unlocked dashboard configuration."""
+    # Point directly to your independent public dashboard pages
+    destination_url = f"{ENGINE_BASE_URL}/dashboards/tier{tier}.html?utm_source=lff_ambassador&utm_campaign={username}"
     
     html_content = f"""<!DOCTYPE html>
 <html>
@@ -33,7 +38,7 @@ def generate_redirect_html(username):
     gtag('config', '{GTAG_ID}');
   </script>
 
-  <!-- Redirect mapping tracking campaign data directly to your real domain -->
+  <!-- Automated Routing Parameter -->
   <meta http-equiv="refresh" content="0; url={destination_url}">
 </head>
 <body>
@@ -42,11 +47,11 @@ def generate_redirect_html(username):
 """
     return html_content
 
-def process_roster(csv_path, public_engine_dir):
-    print("🎣 Running LFF Operations Sync...")
+def process_roster(csv_path, output_dir):
+    print("🎣 Executing LifeTime Fishing Fund Routing Compilation...")
     
     if not os.path.exists(csv_path):
-        print(f"❌ Error: Private roster missing at: {csv_path}")
+        print(f"❌ Operational Failure: Cannot locate private database at {csv_path}")
         return
 
     with open(csv_path, mode='r', newline='', encoding='utf-8') as file:
@@ -57,24 +62,22 @@ def process_roster(csv_path, public_engine_dir):
             tracking_id = row['tracking_id']
             xp = int(row['xp'])
 
-            tier = calculate_tier(xp)
-            print(f"👤 Syncing: {username} (Tier {tier}) -> Track Route: /{tracking_id}")
+            # Determine Tier Routing Assignment
+            current_tier = calculate_tier(xp)
+            print(f"👤 Mapping: {username} ({xp} XP) -> Accessing Tier {current_tier} via /{tracking_id}")
 
-            # Build the custom mobile tracker text block
-            html_blueprint = generate_redirect_html(username)
+            # Compile individual meta-refresh script files
+            html_blueprint = generate_tiered_redirect(username, current_tier)
             
-            # Map directly into the path structure for your tracking engine
-            user_track_dir = os.path.join(public_engine_dir, tracking_id)
+            # Form clean subdirectory configurations inside the tracking engine space
+            user_track_dir = os.path.join(output_dir, tracking_id)
             os.makedirs(user_track_dir, exist_ok=True)
             
             with open(os.path.join(user_track_dir, "index.html"), "w", encoding="utf-8") as out_file:
                 out_file.write(html_blueprint)
                 
-    print("✅ Public tracker routes successfully compiled!")
+    print("✅ Public routing profiles updated successfully!")
 
 if __name__ == "__main__":
-    # Point this directly to where you have cloned your local public LFF-QR-Engine folder
-    # Example relative setup assumes they live side-by-side in your workspace
-    PUBLIC_ENGINE_PATH = "../LFF-QR-Engine" 
-    
-    process_roster("data/ambassadors.csv", PUBLIC_ENGINE_PATH)
+    # Point this to where the workflow will drop the temporary private spreadsheet file
+    process_roster("ambassadors.csv", ".")
