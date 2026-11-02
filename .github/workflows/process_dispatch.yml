@@ -1,0 +1,44 @@
+name: Pull and Build Tracker Paths
+
+on:
+  repository_dispatch:
+    types: [roster_updated]
+
+jobs:
+  build-tracks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Public QR Code Engine
+        uses: actions/checkout@v4
+
+      - name: Securely Fetch Private Roster
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/LFF-Ambass-ops
+          path: private-ops
+          # Uses the built-in system authentication to read your own organization content
+          token: ${{ secrets.GITHUB_TOKEN }} 
+
+      - name: Setup Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Generate Public Redirect Index Files
+        run: |
+          # Moves your private roster file temporarily to let the engine read it
+          cp private-ops/data/ambassadors.csv ./ambassadors.csv
+          python manage_ambassadors.py
+          rm ./ambassadors.csv # Removes the private database data before committing
+
+      - name: Deploy Tracker Updates Live
+        run: |
+          git config --global user.name "LFF Engine Build"
+          git config --global user.email "engine@lifetimefishingfund.org"
+          git add .
+          if git diff-index --quiet HEAD --; then
+            echo "No changes found."
+          else
+            git commit -m "Automated Deploy: Recompiled tracking endpoints"
+            git push origin main
+          fi
