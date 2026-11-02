@@ -3,6 +3,9 @@ name: Compile Public Tracker Routes
 on:
   repository_dispatch:
     types: [roster_updated]
+    
+# This opens the security gate for the incoming background runner
+permissions: write-all
 
 jobs:
   build-tracks:
