@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LFF — Outreach Ambassador Tools</title>
+    <title>LFF — Outreach Ambassador Vault</title>
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://googletagmanager.com"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag()){dataLayer.push(arguments);}
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-CVGCBXJ2L0');
     </script>
@@ -52,18 +52,23 @@
 
         .tool-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .tool-grid { grid-template-columns: 1fr 1fr; }
         }
 
         .tool-card {
             border: 1px solid #30363d;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             background: #161920;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .tool-card p {
@@ -75,7 +80,7 @@
         .download-btn {
             display: inline-block;
             text-align: center;
-            padding: 10px 16px;
+            padding: 12px 16px;
             background-color: #21262d;
             color: #c9d1d9;
             border: 1px solid #30363d;
@@ -83,12 +88,13 @@
             text-decoration: none;
             font-weight: bold;
             margin-top: 15px;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
 
         .download-btn:hover {
             background-color: #30363d;
             color: #ffffff;
+            border-color: #8b949e;
         }
     </style>
 </head>
@@ -96,36 +102,35 @@
 
 <section class="header-panel">
     <span class="level-badge">📦 Tier 2 Active</span>
-    <h1>Outreach Ambassador Center</h1>
-    <p style="color: #8b949e; margin: 5px 0 0 0;">Your footprint has expanded. Use the physical deployment gear below to drive physical impact.</p>
+    <h1>Outreach Toolkit Deployment</h1>
+    <p style="color: #8b949e; margin: 5px 0 0 0;">Your footprint has expanded. Use these physical media layers to optimize local launch ramp placement slots.</p>
 </section>
 
-<h2>Your Unlocked Operational Tools</h2>
-<p style="color: #8b949e; margin-bottom: 20px;"><strong>Current Track Assignment:</strong> Leaving materials at boat ramps, bait shops, and tournament bags.</p>
+<h2>Available Deployment Kits</h2>
+<p style="color: #8b949e; margin-bottom: 25px;"><strong>Operational Mission Track:</strong> Distributing physical print coordinates across local bait shops and priority tournament weigh-in drop zones.</p>
 
 <div class="tool-grid">
-    <!-- Tool 1 -->
+    <!-- Asset Card 1 -->
     <div class="tool-card">
         <div>
-            <h3>🪪 Printable QR Cards</h3>
-            <p>Pocket-sized handout card layouts. Perfect for handing out to hunters and anglers directly at the launch docks.</p>
+            <h3>🪪 Printable Handout QR Cards</h3>
+            <p>Pocket-sized card arrays template layout. Clean layouts optimized to slip to hunters, guides, and tournament anglers directly at launch docks.</p>
         </div>
-        <!-- Point these to wherever you drop the raw assets in your public repo folder -->
-        <a class="download-btn" href="./assets/qr-cards-template.pdf" download>Download Print Layout</a>
+        <a class="download-btn" href="https://github.io" download>Download PDF Grid Template</a>
     </div>
 
-    <!-- Tool 2 -->
+    <!-- Asset Card 2 -->
     <div class="tool-card">
         <div>
-            <h3>📋 Priority Flyers & Stickers</h3>
-            <p>Official informational flyers and sticker sheet templates designed to be posted on bulletin boards or included in local tournament bags.</p>
+            <h3>📋 Priority Flyers & Bulletin Strips</h3>
+            <p>High-visibility information sheet design specs. Engineered to lock onto marina bulletin boards or include directly in upcoming tournament player bags.</p>
         </div>
-        <a class="download-btn" href="./assets/outreach-flyer.pdf" download>Download Asset Kit</a>
+        <a class="download-btn" href="https://github.io" download>Download Asset Kit</a>
     </div>
 </div>
 
 <footer>
-    <p>© 2026 The LifeTime Fishing Fund — Mission Company</p>
+    <p style="text-align: center; margin-top: 40px; color: #484f58; font-size: 0.9rem;">© 2026 The LifeTime Fishing Fund</p>
 </footer>
 
 </body>
