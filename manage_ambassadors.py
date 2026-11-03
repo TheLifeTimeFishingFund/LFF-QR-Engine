@@ -23,47 +23,29 @@ def calculate_tier(xp):
 
 def generate_tiered_redirect(username, tier):
     """Creates an index page that bounces scanners to their unlocked dashboard configuration."""
-
-    destination_url = (
-        f"{ENGINE_BASE_URL}/dashboards/tier{tier}.html"
-        f"?utm_source=lff_ambassador&utm_campaign={username}"
-    )
-
+    # Point directly to your independent public dashboard pages
+    destination_url = f"{ENGINE_BASE_URL}/dashboards/tier{tier}.html?utm_source=lff_ambassador&utm_campaign={username}"
+    
     html_content = f"""<!DOCTYPE html>
 <html>
 <head>
-
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={GTAG_ID}"></script>
-
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){{dataLayer.push(arguments);}}
-
     gtag('js', new Date());
     gtag('config', '{GTAG_ID}');
   </script>
 
-  <meta http-equiv="refresh" content="0; url={destination_url}">
-
-</head>
-<body>
-</body>
-</html>
-"""
-
-    return html_content
-
   <!-- Automated Routing Parameter -->
   <meta http-equiv="refresh" content="0; url={destination_url}">
-
 </head>
 <body>
 </body>
 </html>
 """
     return html_content
-
 
 def process_roster(csv_path, output_dir):
     print("🎣 Executing LifeTime Fishing Fund Routing Compilation...")
